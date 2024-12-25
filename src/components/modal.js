@@ -1,17 +1,26 @@
-function openModal(popup) {
-	popup.classList.add("popup_is-opened");
-  document.addEventListener("keydown", closeByEsc);
+// modal.js
+
+export function closeByEsc(evt) {
+    if (evt.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_is-opened');
+        if (openedPopup) {
+            closeModal(openedPopup);
+        }
+    }
 }
 
-function closeModal(popup) {
-	popup.classList.remove("popup_is-opened");
-  document.removeEventListener("keydown", closeByEsc);
+export function openModal(popup) {
+    popup.classList.add('popup_is-opened');
+    document.addEventListener('keydown', closeByEsc);
 }
 
-function closeByEsc(evt) {
-	if (evt.key == "Escape") {
-		closeModal(document.querySelector(".popup_is-opened"));
-	}
+export function closeModal(popup) {
+    popup.classList.remove('popup_is-opened');
+    document.removeEventListener('keydown', closeByEsc);
 }
 
-export { openModal, closeModal };
+export function closePopupOnOverlayClick(evt) {
+    if (evt.target === evt.currentTarget) {
+        closeModal(evt.currentTarget);
+    }
+}
